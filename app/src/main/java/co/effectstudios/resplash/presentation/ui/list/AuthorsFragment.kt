@@ -14,6 +14,7 @@ import co.effectstudios.resplash.presentation.common.ScopedFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.author_details_fragment.*
 import kotlinx.android.synthetic.main.authors_fragment.*
 import kotlinx.coroutines.launch
 
@@ -34,9 +35,25 @@ class AuthorsFragment : ScopedFragment(R.layout.authors_fragment) {
 
             pg_loader.visibility = View.GONE
 
-            initAuthorRecyclerView(authors.toAuthorItems())
+            showContent()
+
+            val authItems = authors.toAuthorItems()
+
+            initAuthorRecyclerView(authItems)
+            GlideApp.with(this@AuthorsFragment)
+                .load(authItems.last().authorEntry.downloadUrl)
+                .into(iv_image_of_the_week)
+            iv_image_of_the_week.setOnClickListener { view ->
+                showAuthorDetail(authItems.last(), view)
+            }
 
         })
+    }
+
+    private fun showContent(){
+        titleTextView.visibility = View.VISIBLE
+        cv_image_of_the_week.visibility = View.VISIBLE
+        lv_authors.visibility = View.VISIBLE
     }
 
     private fun List<AuthorEntry>.toAuthorItems(): List<AuthorItem> {
@@ -49,7 +66,11 @@ class AuthorsFragment : ScopedFragment(R.layout.authors_fragment) {
         }
 
         rc_authors_list_view.apply {
-            layoutManager = LinearLayoutManager(this@AuthorsFragment.context)
+            layoutManager = LinearLayoutManager(
+                this@AuthorsFragment.context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             adapter = groupAdapter
         }
 
@@ -57,7 +78,6 @@ class AuthorsFragment : ScopedFragment(R.layout.authors_fragment) {
             (item as? AuthorItem)?.let {
                 showAuthorDetail(it, view)
             }
-//            Toast.makeText(this@AuthorsFragment.context, "Clicked", Toast.LENGTH_SHORT).show()
         }
 
     }

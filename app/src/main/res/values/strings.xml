@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Resplash</string>
     <string name="author_image">Author Image</string>
+    <string name="author">AUTHOR</string>
+    <string name="photo_of_the_week">FEATURED</string>
+    <string name="authors">AUTHORS</string>
 </resources>

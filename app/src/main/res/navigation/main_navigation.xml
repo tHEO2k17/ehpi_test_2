@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/authorsFragment"
         android:name="co.effectstudios.resplash.presentation.ui.list.AuthorsFragment"
-        android:label=" "
-        tools:layout="@layout/authors_fragment" >
+        android:label="Explore"
+        tools:layout="@layout/authors_fragment">
         <action
             android:id="@+id/toAuthorDetails"
             app:destination="@id/authorDetailFragment" />
