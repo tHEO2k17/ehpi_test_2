@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Resplash</string>
+    <string name="author_image">Author Image</string>
 </resources>
